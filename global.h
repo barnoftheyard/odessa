@@ -38,6 +38,8 @@ extern SDL_GLContext g_context;
 extern int screen_width;
 extern int screen_height;
 
+extern int FOV;
+
 extern float deg2rad(float deg);
 
 extern float delta;

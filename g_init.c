@@ -16,7 +16,6 @@ int g_init()
 	
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     
-	
 	//Creates the SDL window.
 	g_window = SDL_CreateWindow(
         GAME_NAME, 
@@ -51,7 +50,7 @@ int g_init()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	gluPerspective(90, (float)screen_width / (float)screen_height, 0.1, 100);
+	gluPerspective(FOV, (float)screen_width / (float)screen_height, 0.1, 100);
     
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

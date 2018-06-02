@@ -48,8 +48,11 @@ void g_draw_testcube(float x_offset, float y_offset, float z_offset)
 	glEnd();  // End of drawing color-cube
 }
 
-void g_window_resize(int screen_width, int screen_height)
+void g_window_resize(int new_width, int new_height)
 {
+	screen_width = new_width;
+	screen_height = new_height;
+	
     if(screen_height == 0)
     {
 		screen_height = 1;
@@ -59,7 +62,7 @@ void g_window_resize(int screen_width, int screen_height)
     glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
     //Set FOV
-	gluPerspective(90, (float)screen_width / (float)screen_height, 0.1, 100);
+	gluPerspective(FOV, (float)screen_width / (float)screen_height, 0.1, 100);
     
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
