@@ -23,30 +23,38 @@ game's definations and is akin to the quakedef.h file in Quake 1.
 Ukrainian Nationalist Authority over Territorial Control of Oblasts
 */
 
-int g_init();
+void g_init();
 void g_render();
 void g_update();
 void g_close();
-void g_keyinput(SDL_Event event);
+void g_renderinit();
+
+void g_keyinput(const Uint8* g_keyinput);
 void g_mouseinput(SDL_Event event);
 void g_window_resize(int width, int height);
-void g_draw_testcube(float x_offset, float y_offset, float z_offset);
 
-extern SDL_Window* g_window;
-extern SDL_GLContext g_context;
+const Uint8* g_keystate;
 
-extern int screen_width;
-extern int screen_height;
+void r_draw_testcube();
+void r_draw_texcube();
+void r_draw_texquad(float tex_scale, float size);
+GLuint r_loadtexture(char* filepath);
 
-extern int FOV;
+SDL_Window* g_window;
+SDL_GLContext g_context;
 
-extern float deg2rad(float deg);
+int screen_width;
+int screen_height;
 
-extern float delta;
-extern int thisTime;
-extern int lastTime;
+int FOV;
 
-extern float mouse_sense;
+float deg2rad(float deg);
+
+float delta;
+
+float mouse_sense;
+
+bool capture_mouse;
 
 struct g_plyrdata
 {
@@ -66,6 +74,6 @@ struct vector3
 	float z;
 };
 
-extern struct g_plyrdata g_plyr;
+struct g_plyrdata g_plyr;
 
 #endif

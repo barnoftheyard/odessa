@@ -1,23 +1,21 @@
 #include "global.h"
 
-int g_init()
+void g_init()
 {
-	
-	//Initializes SDL
-	if(SDL_Init(SDL_INIT_VIDEO) < 0)
+
+	if(SDL_Init(SDL_INIT_VIDEO) < 0)									//Initializes SDL
 	{
 		fprintf(stderr, "SDL init fuckup. Send this to a codenigger. %s\n", SDL_GetError());
-		return EXIT_FAILURE;
+		g_close();
+		exit(EXIT_FAILURE);
 	}
 	
-	//Sets what OpenGL context we use
 	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     
-	//Creates the SDL window.
-	g_window = SDL_CreateWindow(
+	g_window = SDL_CreateWindow(										//Creates the SDL window
         GAME_NAME, 
         SDL_WINDOWPOS_CENTERED, 
         SDL_WINDOWPOS_CENTERED, 
@@ -28,7 +26,8 @@ int g_init()
 	if(g_window == NULL)
 	{
         fprintf(stderr, "SDL window creation fuckup. Send this to a codenigger. %s\n", SDL_GetError());
-        return EXIT_FAILURE;
+        g_close();
+        exit(EXIT_FAILURE);
 	}
 	
 	
@@ -37,16 +36,14 @@ int g_init()
 	if(g_context == NULL)
 	{
 		fprintf(stderr, "SDL window context fuckup. Send this to a codenigger. %s\n", SDL_GetError());
-		return EXIT_FAILURE;
+		g_close();
+		exit(EXIT_FAILURE);
 	}
 	
 	glClearColor(0.5, 0.69, 1.0, 1);									//Set color of the sky (background)
     
-    glEnable(GL_DEPTH_TEST);                       						//Enables Depth Testing
-	
 	glViewport(0, 0, screen_width, screen_height);						//Set the size of the viewport.
-    
-    //To operate on the Projection matrix.
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
@@ -55,14 +52,17 @@ int g_init()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
+	glEnable(GL_DEPTH_TEST);                       						//Enables Depth Testing
+	glEnable(GL_TEXTURE_2D);
 	
-    //Error handling for OpenGL
-	GLenum gl_error = glGetError();
+	g_renderinit();
+	
+	GLenum gl_error = glGetError();										//Error handling for OpenGL
 	if(gl_error != GL_NO_ERROR)
 	{
 		fprintf(stderr, "OpenGL fuckup. Send this to a codenigger. %s\n", gluErrorString(gl_error));
-		return EXIT_FAILURE;
+		g_close();
+		exit(EXIT_FAILURE);
 	}
 	
-	return EXIT_SUCCESS;
 }

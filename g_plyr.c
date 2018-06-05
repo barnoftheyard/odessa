@@ -15,9 +15,9 @@ void clamp_camera()														//Clamp pitch to 90 and -90 and wrap 360 all ar
 		g_plyr.pitch = 90.0f;
 	}
 	else if(g_plyr.pitch < -90.0f)
-		{
+	{
 		g_plyr.pitch = -90.0f;
-		}
+	}
 	if(g_plyr.yaw <=0.0f)
 	{
 		g_plyr.yaw += 360.0f;
@@ -28,82 +28,95 @@ void clamp_camera()														//Clamp pitch to 90 and -90 and wrap 360 all ar
 	}
 }
 
-void g_keyinput(SDL_Event event)
+void g_keyinput(const Uint8* keystate)
 {
-	switch(event.key.keysym.sym)
+	if(keystate[SDL_SCANCODE_W])
 	{
-		case SDLK_w:
-			g_plyr.x += sin(deg2rad(direction.x)) * g_plyr.speed * delta;			//Use sine and cosine to linear interpolate
-			g_plyr.y += -sin(deg2rad(direction.y)) * g_plyr.speed * delta;
-			g_plyr.z += cos(deg2rad(direction.z)) * g_plyr.speed * delta;
-			break;
-		case SDLK_s:
-			g_plyr.x -= sin(deg2rad(direction.x)) * g_plyr.speed * delta;
-			g_plyr.y -= -sin(deg2rad(direction.y)) * g_plyr.speed * delta;
-			g_plyr.z -= cos(deg2rad(direction.z)) * g_plyr.speed * delta;
-			break;
+		g_plyr.x += sin(deg2rad(direction.x)) * g_plyr.speed * delta;			//Use sine and cosine to linear interpolate
+		g_plyr.y += -sin(deg2rad(direction.y)) * g_plyr.speed * delta;
+		g_plyr.z += cos(deg2rad(direction.z)) * g_plyr.speed * delta;
+	}
+	if(keystate[SDL_SCANCODE_S])
+	{
+		g_plyr.x -= sin(deg2rad(direction.x)) * g_plyr.speed * delta;
+		g_plyr.y -= -sin(deg2rad(direction.y)) * g_plyr.speed * delta;
+		g_plyr.z -= cos(deg2rad(direction.z)) * g_plyr.speed * delta;
+	}
 			
-		case SDLK_a:
-			g_plyr.x += sin(deg2rad(direction.x + 90)) * g_plyr.speed * delta;		//Add 90 degrees to make motion horizonal
-			g_plyr.z += cos(deg2rad(direction.z + 90)) * g_plyr.speed * delta;
-			break;
-		case SDLK_d:
-			g_plyr.x -= sin(deg2rad(direction.x + 90)) * g_plyr.speed * delta;
-			g_plyr.z -= cos(deg2rad(direction.z + 90)) * g_plyr.speed * delta;
-			break;
+	if(keystate[SDL_SCANCODE_A])
+	{
+		g_plyr.x += sin(deg2rad(direction.x + 90)) * g_plyr.speed * delta;		//Add 90 degrees to make motion horizonal
+		g_plyr.z += cos(deg2rad(direction.z + 90)) * g_plyr.speed * delta;
+	}
+	if(keystate[SDL_SCANCODE_D])
+	{
+		g_plyr.x -= sin(deg2rad(direction.x + 90)) * g_plyr.speed * delta;
+		g_plyr.z -= cos(deg2rad(direction.z + 90)) * g_plyr.speed * delta;
+	}
 			
-		case SDLK_SPACE:
-			g_plyr.y -= g_plyr.speed * delta;
-			printf("space\n");
-			break;
-		case SDLK_e:
-			g_plyr.y += g_plyr.speed * delta;
-			printf("e\n");
-			break;
+	if(keystate[SDL_SCANCODE_SPACE])
+	{
+		g_plyr.y -= g_plyr.speed * delta;
+	}
+	if(keystate[SDL_SCANCODE_E])
+	{
+		g_plyr.y += g_plyr.speed * delta;
+	}
 			
-		case SDLK_UP:
-			g_plyr.pitch -= 100.0f * delta;
-			direction.y = -g_plyr.pitch;
-			break;
-		case SDLK_LEFT:
-			g_plyr.yaw -= 100.0f * delta;
-			direction.x = -g_plyr.yaw;
-			//direction.y = g_plyr.yaw;
-			direction.z = -g_plyr.yaw;
-			break;
-		case SDLK_DOWN:
-			g_plyr.pitch += 100.0f * delta;
-			direction.y = -g_plyr.pitch;
-			break;
-		case SDLK_RIGHT:
-			g_plyr.yaw += 100.0f * delta;
-			direction.x = -g_plyr.yaw;
-			//direction.y = g_plyr.yaw;
-			direction.z = -g_plyr.yaw;
-			break;
+	if(keystate[SDL_SCANCODE_UP])
+	{
+		g_plyr.pitch -= 100.0f * delta;
+		direction.y = -g_plyr.pitch;
+	}
+	if(keystate[SDL_SCANCODE_LEFT])
+	{
+		g_plyr.yaw -= 100.0f * delta;
+		direction.x = -g_plyr.yaw;
+		//direction.y = g_plyr.yaw;
+		direction.z = -g_plyr.yaw;
+	}
+	if(keystate[SDL_SCANCODE_DOWN])
+	{
+		g_plyr.pitch += 100.0f * delta;
+		direction.y = -g_plyr.pitch;
+	}
+	if(keystate[SDL_SCANCODE_RIGHT])
+	{
+		g_plyr.yaw += 100.0f * delta;
+		direction.x = -g_plyr.yaw;
+		//direction.y = g_plyr.yaw;
+		direction.z = -g_plyr.yaw;
+	}
+			
+	if(keystate[SDL_SCANCODE_ESCAPE])
+	{
+		capture_mouse = !capture_mouse;
 	}
 	
 	clamp_camera();
 	
-	//Prints the current player's position
 	printf("x: %f y: %f z: %f\n", g_plyr.x, g_plyr.y, g_plyr.z);
 	printf("pitch: %f yaw: %f roll: %f\n", g_plyr.pitch, g_plyr.yaw, g_plyr.roll);
-	
 }
 
 void g_mouseinput(SDL_Event event)
 {
-	SDL_ShowCursor(SDL_DISABLE);
+	if(capture_mouse)
+	{
+		SDL_ShowCursor(SDL_DISABLE);
+		SDL_WarpMouseInWindow(g_window, screen_width / 2, screen_height / 2);
+		
+		g_plyr.yaw -= mouse_sense * (screen_width / 2 - event.motion.x);
+		g_plyr.pitch -= mouse_sense * (screen_height / 2 - event.motion.y);
 	
-	g_plyr.yaw -= mouse_sense * (screen_width / 2 - event.motion.x);
-	g_plyr.pitch -= mouse_sense * (screen_height / 2 - event.motion.y);
+		direction.x = -g_plyr.yaw;
+		direction.y = -g_plyr.pitch;
+		direction.z = -g_plyr.yaw;
 	
-	direction.x = -g_plyr.yaw;
-	direction.y = -g_plyr.pitch;
-	direction.z = -g_plyr.yaw;
-	
-	clamp_camera();
-	
-	SDL_WarpMouseInWindow(g_window, screen_width / 2, screen_height / 2);
-	
+		clamp_camera();
+	}
+	else
+	{
+		SDL_ShowCursor(SDL_ENABLE);
+	}
 }

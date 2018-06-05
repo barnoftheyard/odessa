@@ -6,10 +6,9 @@ SDL_GLContext g_context;
 int screen_width = 1280;
 int screen_height = 720;
 int FOV = 90;
+bool capture_mouse = true;
 
 float delta = 0.0;
-int thisTime = 0;
-int lastTime = 0;
 
 float deg2rad(float deg)
 {

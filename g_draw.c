@@ -1,51 +1,78 @@
 #include "global.h"
 
-void g_draw_testcube(float x_offset, float y_offset, float z_offset)
+void r_draw_testcube()
 {
 	glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
-		// Top face (y = 1.0f)
-		// Define vertices in counter-clockwise (CCW) order with normal pointing out
-		glColor3f(0.0f, 1.0f, 0.0f);     // Green
-		glVertex3f( 1.0f + x_offset, 1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset, 1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset, 1.0f + y_offset,  1.0f + z_offset);
-		glVertex3f( 1.0f + x_offset, 1.0f + y_offset,  1.0f + z_offset);
- 
-		// Bottom face (y = -1.0f)
-		glColor3f(1.0f, 0.5f, 0.0f);     // Orange
-		glVertex3f( 1.0f + x_offset, -1.0f + y_offset,  1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset, -1.0f + y_offset,  1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset, -1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f( 1.0f + x_offset, -1.0f + y_offset, -1.0f + z_offset);
- 
-		// Front face  (z = 1.0f)
-		glColor3f(1.0f, 0.0f, 0.0f);     // Red
-		glVertex3f( 1.0f + x_offset,  1.0f + y_offset, 1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset,  1.0f + y_offset, 1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset, -1.0f + y_offset, 1.0f + z_offset);
-		glVertex3f( 1.0f + x_offset, -1.0f + y_offset, 1.0f + z_offset);
- 
-		// Back face (z = -1.0f)
-		glColor3f(1.0f, 1.0f, 0.0f);     // Yellow
-		glVertex3f( 1.0f + x_offset, -1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset, -1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset,  1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f( 1.0f + x_offset,  1.0f + y_offset, -1.0f + z_offset);
- 
-		// Left face (x = -1.0f)
-		glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-		glVertex3f(-1.0f + x_offset,  1.0f + y_offset,  1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset,  1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset, -1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f(-1.0f + x_offset, -1.0f + y_offset,  1.0f + z_offset);
- 
-		// Right face (x = 1.0f)
-		glColor3f(1.0f, 0.0f, 1.0f);     // Magenta
-		glVertex3f(1.0f + x_offset,  1.0f + y_offset, -1.0f + z_offset);
-		glVertex3f(1.0f + x_offset,  1.0f + y_offset,  1.0f + z_offset);
-		glVertex3f(1.0f + x_offset, -1.0f + y_offset,  1.0f + z_offset);
-		glVertex3f(1.0f + x_offset, -1.0f + y_offset, -1.0f + z_offset);
+		glVertex3f( 1.0f, 1.0f,-1.0f);					// Top Right Of The Quad (Top)
+		glVertex3f(-1.0f, 1.0f,-1.0f);					// Top Left Of The Quad (Top)
+		glVertex3f(-1.0f, 1.0f, 1.0f);					// Bottom Left Of The Quad (Top)
+		glVertex3f( 1.0f, 1.0f, 1.0f);					// Bottom Right Of The Quad (Top)
+		glVertex3f( 1.0f,-1.0f, 1.0f);					// Top Right Of The Quad (Bottom)
+		glVertex3f(-1.0f,-1.0f, 1.0f);					// Top Left Of The Quad (Bottom)
+		glVertex3f(-1.0f,-1.0f,-1.0f);					// Bottom Left Of The Quad (Bottom)
+		glVertex3f( 1.0f,-1.0f,-1.0f);					// Bottom Right Of The Quad (Bottom)
+		glVertex3f( 1.0f, 1.0f, 1.0f);					// Top Right Of The Quad (Front)
+		glVertex3f(-1.0f, 1.0f, 1.0f);					// Top Left Of The Quad (Front)
+		glVertex3f(-1.0f,-1.0f, 1.0f);					// Bottom Left Of The Quad (Front)
+		glVertex3f( 1.0f,-1.0f, 1.0f);					// Bottom Right Of The Quad (Front)
+		glVertex3f( 1.0f,-1.0f,-1.0f);					// Top Right Of The Quad (Back)
+		glVertex3f(-1.0f,-1.0f,-1.0f);					// Top Left Of The Quad (Back)
+		glVertex3f(-1.0f, 1.0f,-1.0f);					// Bottom Left Of The Quad (Back)
+		glVertex3f( 1.0f, 1.0f,-1.0f);					// Bottom Right Of The Quad (Back)
+		glVertex3f(-1.0f, 1.0f, 1.0f);					// Top Right Of The Quad (Left)
+		glVertex3f(-1.0f, 1.0f,-1.0f);					// Top Left Of The Quad (Left)
+		glVertex3f(-1.0f,-1.0f,-1.0f);					// Bottom Left Of The Quad (Left)
+		glVertex3f(-1.0f,-1.0f, 1.0f);					// Bottom Right Of The Quad (Left)
+		glVertex3f( 1.0f, 1.0f,-1.0f);					// Top Right Of The Quad (Right)
+		glVertex3f( 1.0f, 1.0f, 1.0f);					// Top Left Of The Quad (Right)
+		glVertex3f( 1.0f,-1.0f, 1.0f);					// Bottom Left Of The Quad (Right)
+		glVertex3f( 1.0f,-1.0f,-1.0f);					// Bottom Right Of The Quad (Right)
 	glEnd();  // End of drawing color-cube
+}
+
+void r_draw_texquad(float tex_scale, float size)
+{
+	glBegin(GL_QUADS);
+		glTexCoord2f(tex_scale, tex_scale); glVertex3f(size, 0.0f, size);  // Top Right Of The Texture and Quad
+		glTexCoord2f(-tex_scale, tex_scale); glVertex3f(-size, 0.0f, size);  // Top Left Of The Texture and Quad
+		glTexCoord2f(-tex_scale, -tex_scale); glVertex3f(-size, 0.0f,  -size);  // Bottom Left Of The Texture and Quad
+		glTexCoord2f(tex_scale, -tex_scale); glVertex3f(size, 0.0f,  -size);  // Bottom Right Of The Texture and Quad
+	glEnd();
+}
+
+void r_draw_texcube()
+{
+	glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);  // Top Right Of The Texture and Quad
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);  // Top Left Of The Texture and Quad
+		// Back Face
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Bottom Right Of The Texture and Quad
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Top Right Of The Texture and Quad
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Top Left Of The Texture and Quad
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Bottom Left Of The Texture and Quad
+		// Top Face
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Top Left Of The Texture and Quad
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Top Right Of The Texture and Quad
+		// Bottom Face
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Top Right Of The Texture and Quad
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Top Left Of The Texture and Quad
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
+		// Right face
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Bottom Right Of The Texture and Quad
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Top Right Of The Texture and Quad
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);  // Top Left Of The Texture and Quad
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+		// Left Face
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Bottom Left Of The Texture and Quad
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);  // Top Right Of The Texture and Quad
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Top Left Of The Texture and Quad
+    glEnd();
 }
 
 void g_window_resize(int new_width, int new_height)

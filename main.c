@@ -2,21 +2,19 @@
 
 int main(int argc, char* args[])
 {
+	int current_time;
+	int previous_time;
+	bool quit = false;													//Main loop flag
+	
 	g_init();
 	
-	//Main loop flag
-	bool quit = false;
+	SDL_Event event;													//Event handler
+	const Uint8* g_keystate = SDL_GetKeyboardState(NULL);				//Get current key state
 
-	//Event handler
-	SDL_Event event;
-
-	//The main game loop. Everything that is refrenced here is repeated within the game.
-	while(!quit)
+	while(!quit)														//The main game loop
 	{
-		//Handle events on queue
-		while(SDL_PollEvent(&event))
+		while(SDL_PollEvent(&event))									//Handle events on queue
 		{
-			//User requests quit
 			if(event.type == SDL_QUIT)
 			{
 				quit = true;
@@ -25,28 +23,21 @@ int main(int argc, char* args[])
             {
                 g_window_resize(event.window.data1, event.window.data2);
             }
-			//Handle keypress with current mouse position
-			else if(event.type == SDL_KEYDOWN)
-			{
-				g_keyinput(event);
-			}
 			else if(event.type == SDL_MOUSEMOTION)
             {
                 g_mouseinput(event);
             }
-			
 		}
-		//Render the game. Called every tick.
-		g_render();
+		g_keyinput(g_keystate);											//Check for key states
 		
-		//Gets the delta
-		thisTime = SDL_GetTicks();
-		delta = (float)(thisTime - lastTime) / 1000;
-		lastTime = thisTime; 
+		g_render();														//Render the game, called every tick
+		
+		current_time = SDL_GetTicks();
+		delta = (float)(current_time - previous_time) / 1000;			//Gets the delta
+		previous_time = current_time; 
 		
 	}
-	//Free resources and close SDL
-	g_close();
+	g_close();												//Free resources and close SDL
 
 	return 0;
 }
